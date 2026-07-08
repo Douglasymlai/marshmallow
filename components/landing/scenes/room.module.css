@@ -1,0 +1,573 @@
+.viewport {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.6s var(--ease-out);
+}
+
+.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.wrapper {
+  width: calc(1080 * var(--u));
+  max-width: 94vw;
+  opacity: 0;
+  transform: translateY(5vh);
+  transition:
+    opacity 0.7s var(--ease-out),
+    transform 0.7s var(--ease-out);
+}
+
+.wrapperIn {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* folder tabs — left edge lines up with the panel's own left border */
+.tabs {
+  display: flex;
+}
+
+.tab {
+  position: relative;
+  padding: 12px 26px 10px 18px;
+  background: #dfdcd2;
+  color: var(--warm);
+  font-size: 13.5px;
+  letter-spacing: -0.33px;
+  border-radius: 8px 22px 0 0;
+  margin-right: -14px;
+  cursor: pointer;
+  border: none;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+  transition:
+    background 0.25s,
+    color 0.25s,
+    box-shadow 0.25s,
+    transform 0.25s var(--ease-out);
+}
+
+.tabActive {
+  background: var(--paper);
+  color: var(--ink);
+  z-index: 2;
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-card);
+}
+
+/* panel — pulled up slightly to close the gap left by the active tab's lift.
+   --g is the paper's grid unit; every child box below is sized as a whole
+   multiple of it so buttons/rows/cells land exactly on the ruled lines. */
+.panel {
+  position: relative;
+  margin-top: -2px;
+  height: min(66vh, calc(560 * var(--u)));
+  --g: calc(26 * var(--u));
+  background: var(--paper);
+  border-radius: 0 10px 10px 10px;
+  box-shadow: var(--shadow-panel);
+  padding: clamp(14px, 2.5vh, 26px) clamp(14px, 2.5vw, 30px);
+  background-image:
+    linear-gradient(rgba(140, 135, 128, 0.07) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(140, 135, 128, 0.07) 1px, transparent 1px);
+  background-size: var(--g) var(--g);
+  background-origin: content-box;
+  overflow: hidden;
+}
+
+.toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: var(--g);
+  margin-bottom: var(--g);
+}
+
+/* sized to exactly four grid boxes wide, one box tall */
+.rowsChip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  width: calc(var(--g) * 4);
+  height: var(--g);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: var(--cream);
+  font-family: var(--font-geist-mono);
+  font-size: 11px;
+  color: var(--muted);
+}
+
+.modeToggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  box-sizing: border-box;
+  height: var(--g);
+  padding: 0 12px;
+  border: 1px solid var(--line);
+  border-radius: 100px;
+  background: var(--cream);
+  font-size: 12.5px;
+}
+
+.modeBtn,
+.modeActive {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 12.5px;
+  letter-spacing: -0.3px;
+}
+
+.modeBtn {
+  color: var(--muted);
+}
+
+.modeActive {
+  color: var(--ink);
+  font-weight: 600;
+}
+
+.modeSlash {
+  color: var(--line);
+}
+
+/* table — each row (and each item within it) is exactly one grid box tall,
+   with a one-grid-box gap between rows, and columns are whole multiples of
+   the grid unit so cell edges land on the ruled lines */
+.table {
+  display: flex;
+  flex-direction: column;
+  gap: var(--g);
+}
+
+.tr {
+  display: grid;
+  grid-template-columns: calc(var(--g) * 2) 1.9fr 0.8fr 0.7fr 1fr;
+  column-gap: var(--g);
+  align-items: center;
+  box-sizing: border-box;
+  height: var(--g);
+  padding: 0 12px;
+  font-size: 14px;
+  letter-spacing: -0.33px;
+}
+
+.th {
+  height: var(--g);
+  font-size: 12px;
+  color: var(--warm);
+}
+
+.tdTitle {
+  display: flex;
+  align-items: center;
+  box-sizing: border-box;
+  height: var(--g);
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* each cell gets its own little badge — background, border, rounded
+   corners — instead of one background spanning the whole row; sized to
+   exactly one grid box tall */
+.tdMuted,
+.tdMono {
+  justify-self: start;
+  display: inline-flex;
+  align-items: center;
+  box-sizing: border-box;
+  height: var(--g);
+  padding: 0 10px;
+  background: rgba(254, 254, 251, 0.9);
+  border: 1px solid var(--line-soft);
+  border-radius: 6px;
+}
+
+.tdMuted {
+  color: var(--warm);
+}
+
+.tdMono {
+  font-family: var(--font-geist-mono);
+  font-size: 12px;
+  color: var(--warm);
+}
+
+.viewBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  width: 100%;
+  height: var(--g);
+  padding: 0;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: var(--cream);
+  color: var(--muted);
+  font-size: 12px;
+  text-align: center;
+  cursor: pointer;
+  transition:
+    color 0.2s,
+    border-color 0.2s,
+    transform 0.2s var(--ease-spring);
+}
+
+.viewBtn:hover {
+  color: var(--ink);
+  border-color: var(--warm-2);
+  transform: scale(1.05);
+}
+
+.stTodo,
+.stProgress,
+.stReview,
+.stDone,
+.stBlocked {
+  justify-self: start;
+  display: inline-flex;
+  align-items: center;
+  box-sizing: border-box;
+  height: var(--g);
+  padding: 0 10px;
+  border: 1px solid;
+  border-radius: 6px;
+  font-weight: 600;
+}
+
+.stTodo {
+  color: var(--status-todo);
+  background: var(--line-soft);
+  border-color: var(--status-todo);
+}
+
+.stProgress {
+  color: var(--status-progress);
+  background: var(--tint-blue);
+  border-color: var(--status-progress);
+}
+
+.stReview {
+  color: var(--status-review);
+  background: var(--tint-yellow);
+  border-color: var(--status-review);
+}
+
+.stDone {
+  color: var(--status-done);
+  background: var(--tint-green);
+  border-color: var(--status-done);
+}
+
+.stBlocked {
+  color: var(--status-blocked);
+  background: var(--tint-pink);
+  border-color: var(--status-blocked);
+}
+
+/* insight */
+.insight {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 30px;
+  align-items: center;
+  height: calc(100% - 60px);
+}
+
+.insightCol {
+  text-align: center;
+}
+
+.bigNumber {
+  font-family: var(--font-brand);
+  font-weight: 700;
+  font-size: clamp(52px, 7vw, 88px);
+  letter-spacing: -0.96px;
+  line-height: 1;
+}
+
+.bigSlash {
+  color: var(--line);
+  margin: 0 6px;
+}
+
+.bigTotal {
+  font-size: 0.45em;
+  color: var(--warm);
+}
+
+.dotGrid {
+  display: grid;
+  grid-template-columns: repeat(10, 14px);
+  gap: 9px;
+  justify-content: center;
+  margin: 26px 0 10px;
+}
+
+.dotFilled,
+.dotEmpty {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  transition: all 0.4s var(--ease-spring);
+}
+
+.dotFilled {
+  background: var(--status-done);
+}
+
+.dotEmpty {
+  background: transparent;
+  border: 1.4px solid var(--line);
+}
+
+.dotCaption {
+  font-family: var(--font-geist-mono);
+  font-size: 11px;
+  color: var(--muted);
+}
+
+.summaryBox {
+  display: flex;
+  gap: 12px;
+  padding: 20px 22px;
+  background: var(--cream);
+  border: 1px solid var(--line-soft);
+  border-radius: 10px;
+  font-size: 15.5px;
+  line-height: 1.65;
+  color: var(--warm);
+  box-shadow: var(--shadow-card);
+}
+
+.summaryBox b,
+.consensus b {
+  color: var(--ink);
+}
+
+.summaryDot {
+  flex-shrink: 0;
+  width: 10px;
+  height: 10px;
+  margin-top: 7px;
+  border-radius: 50%;
+  background: var(--tint-yellow);
+  border: 1.6px solid var(--status-review);
+}
+
+/* thread panel */
+.thread {
+  position: absolute;
+  inset: 0;
+  background: var(--paper);
+  padding: 24px 30px;
+  transform: translateX(102%);
+  transition: transform 0.5s var(--ease-out);
+  box-shadow: -12px 0 30px rgba(0, 0, 0, 0.06);
+  overflow-y: auto;
+}
+
+.threadIn {
+  transform: translateX(0);
+}
+
+.threadBack {
+  background: none;
+  border: none;
+  color: var(--muted);
+  font-size: 13px;
+  cursor: pointer;
+  margin-bottom: 14px;
+}
+
+.threadBack:hover {
+  color: var(--ink);
+}
+
+.threadSubject {
+  font-family: var(--font-brand);
+  font-weight: 700;
+  font-size: 20px;
+  margin-bottom: 18px;
+}
+
+.threadSubject code {
+  font-family: var(--font-geist-mono);
+  font-size: 15px;
+  color: var(--muted);
+  margin-left: 8px;
+}
+
+.threadItem {
+  display: flex;
+  gap: 12px;
+  padding: 12px 0;
+  border-top: 1px solid var(--line-soft);
+}
+
+.threadAvatar {
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  border: 1.3px solid var(--warm-2);
+  font-family: var(--font-geist-mono);
+  font-size: 9px;
+  color: var(--warm);
+  background: var(--cream);
+}
+
+.threadFrom {
+  font-weight: 600;
+  font-size: 13.5px;
+}
+
+.threadBody {
+  font-size: 14px;
+  color: var(--warm);
+  line-height: 1.5;
+}
+
+/* roadmap */
+.timeline {
+  position: relative;
+  height: calc(100% - 20px);
+}
+
+/* zigzag connector line, drawn as an SVG behind the dots */
+.rail {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+/* each milestone is absolutely placed at its (x, y) point on the zigzag;
+   the month label and card sit above / below the dot */
+.milestone {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+}
+
+.milestoneMonth {
+  position: absolute;
+  bottom: calc(100% + 30px);
+  left: 50%;
+  transform: translateX(-50%);
+  white-space: nowrap;
+  font-family: var(--font-geist-mono);
+  font-size: 11px;
+  letter-spacing: 2px;
+  color: var(--muted);
+}
+
+.milestoneDot {
+  position: relative;
+  z-index: 1;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--cream);
+  border: 2px solid var(--warm-2);
+}
+
+.milestoneDone {
+  background: var(--status-done);
+  border-color: var(--status-done);
+}
+
+.milestoneCard {
+  position: absolute;
+  top: calc(100% + 22px);
+  left: 50%;
+  width: max-content;
+  max-width: 150px;
+  padding: 10px 14px;
+  background: var(--cream);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  box-shadow: var(--shadow-card);
+  font-size: 13.5px;
+  text-align: center;
+  transform: translateX(-50%) rotate(-1deg);
+}
+
+.milestone:nth-child(odd) .milestoneCard {
+  transform: translateX(-50%) rotate(1.5deg);
+}
+
+/* rfc */
+.rfc {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: calc(100% - 10px);
+  padding: 10px 4vw;
+}
+
+.bubbles {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.bubbleRow {
+  display: flex;
+  align-items: flex-end;
+  gap: 10px;
+  max-width: 62%;
+}
+
+.bubbleRight {
+  align-self: flex-end;
+  flex-direction: row-reverse;
+}
+
+.bubble {
+  padding: 12px 18px;
+  background: var(--cream);
+  border: 1px solid var(--line);
+  border-radius: 16px 16px 16px 4px;
+  font-size: 14.5px;
+  line-height: 1.5;
+  box-shadow: var(--shadow-hair);
+}
+
+.bubbleRight .bubble {
+  border-radius: 16px 16px 4px 16px;
+  background: var(--tint-blue);
+  border-color: #c8daf0;
+  color: #2d4a6b;
+}
+
+.consensus {
+  display: flex;
+  gap: 12px;
+  align-self: center;
+  padding: 14px 20px;
+  background: var(--cream);
+  border: 1px dashed var(--warm-2);
+  border-radius: 10px;
+  font-size: 14px;
+  color: var(--warm);
+  max-width: 560px;
+}

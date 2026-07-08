@@ -1,0 +1,185 @@
+.viewport {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.6s var(--ease-out);
+}
+
+.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.stage {
+  position: relative;
+  width: calc(1000 * var(--u));
+  max-width: 94vw;
+  height: min(76vh, calc(620 * var(--u)));
+  opacity: 0;
+  transition: opacity 0.6s var(--ease-out);
+}
+
+.stageIn {
+  opacity: 1;
+}
+
+/* ── stamps ── */
+.stampWrap {
+  position: absolute;
+  cursor: grab;
+  touch-action: none;
+  user-select: none;
+}
+
+.dragging {
+  cursor: grabbing;
+  z-index: 20;
+}
+
+.stamp {
+  width: calc(150 * var(--u));
+  min-width: 96px;
+  aspect-ratio: 0.82;
+  padding: 9%;
+  rotate: var(--rot);
+  box-shadow: var(--shadow-panel);
+  transition:
+    rotate 0.4s var(--ease-spring),
+    box-shadow 0.3s;
+  /* perforated stamp edge: cream dots punched into the border */
+  outline: 7px dotted var(--cream);
+  outline-offset: -4px;
+  border: 5px solid rgba(255, 255, 255, 0.85);
+}
+
+.dragging .stamp {
+  rotate: 0deg;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.14);
+}
+
+.stampWrap:hover .stamp {
+  rotate: calc(var(--rot) * 0.4);
+}
+
+.face {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.nameLabel {
+  position: absolute;
+  bottom: -26px;
+  left: 50%;
+  translate: -50%;
+  font-family: var(--font-hand);
+  font-size: 19px;
+  color: var(--warm);
+  white-space: nowrap;
+}
+
+/* attribute callouts */
+.attr {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  padding: 5px 11px;
+  background: var(--cream);
+  border: 1px solid var(--line);
+  border-radius: 100px;
+  box-shadow: var(--shadow-card);
+  font-family: var(--font-geist-mono);
+  font-size: 10.5px;
+  color: var(--warm);
+  white-space: nowrap;
+  opacity: 0;
+  transform: translate(-50%, -50%);
+  transition:
+    opacity 0.45s var(--ease-out),
+    transform 0.55s var(--ease-spring);
+  pointer-events: none;
+}
+
+.attrIn {
+  opacity: 1;
+  transform: translate(calc(-50% + var(--ax)), calc(-50% + var(--ay)));
+}
+
+/* ── event badge strip ── */
+.badgeStrip {
+  position: absolute;
+  bottom: 2%;
+  left: 50%;
+  translate: -50%;
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 14px;
+  white-space: nowrap;
+  opacity: 0;
+  transition: opacity 0.4s var(--ease-out);
+}
+
+.badgeStripIn {
+  opacity: 1;
+}
+
+.badge {
+  flex-shrink: 0;
+  white-space: nowrap;
+  padding: 8px 16px;
+  border: 2px dashed var(--warm-2);
+  border-radius: 100px;
+  background: var(--paper);
+  font-family: var(--font-hand-2);
+  font-size: 14px;
+  color: var(--warm);
+  transform: rotate(-2deg);
+  animation: badgeSlap 0.5s var(--ease-spring) both;
+}
+
+.badge:nth-child(even) {
+  transform: rotate(2.5deg);
+  border-color: #8fbcb1;
+  color: #3c6a60;
+  background: var(--tint-teal);
+}
+
+.badgeStripIn .badge {
+  animation-play-state: running;
+}
+
+@keyframes badgeSlap {
+  from {
+    scale: 2.2;
+    opacity: 0;
+  }
+  60% {
+    scale: 0.94;
+    opacity: 1;
+  }
+  to {
+    scale: 1;
+    opacity: 1;
+  }
+}
+
+.dragHint {
+  position: absolute;
+  top: 4%;
+  right: 4%;
+  font-family: var(--font-hand);
+  font-size: 18px;
+  color: var(--muted);
+  transform: rotate(3deg);
+}
+
+@media (max-width: 700px) {
+  .badgeStrip {
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 90%;
+  }
+}

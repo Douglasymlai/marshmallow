@@ -1,0 +1,139 @@
+.viewport {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.6s var(--ease-out);
+  overflow: hidden;
+}
+
+.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.columns {
+  display: flex;
+  justify-content: center;
+  gap: 6vw;
+  padding-top: 16vh;
+}
+
+.group {
+  display: flex;
+  gap: 34px;
+  opacity: 0;
+  transform: translateY(14px);
+  transition:
+    opacity 0.6s var(--ease-out),
+    transform 0.6s var(--ease-out);
+  border-left: 1px solid var(--line-soft);
+  padding-left: 3vw;
+}
+
+.group:first-child {
+  border-left: none;
+}
+
+.columnsIn .group {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.groupHeader {
+  font-size: 13.5px;
+  color: var(--muted);
+}
+
+.groupLinks {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.link {
+  font-size: 13.5px;
+  color: var(--ink);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.link:hover {
+  color: var(--warm);
+}
+
+.versionGroup {
+  flex-direction: column;
+  gap: 16px;
+}
+
+.versionLabel {
+  font-size: 13.5px;
+  color: var(--muted);
+}
+
+/* pink V1 stamp */
+.stamp {
+  display: inline-block;
+  transform: rotate(8deg);
+  transition: transform 0.3s var(--ease-spring);
+}
+
+.stamp:hover {
+  transform: rotate(2deg) scale(1.07);
+}
+
+.stampInner {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 64px;
+  height: 80px;
+  background: #e05a86;
+  box-shadow: var(--shadow-card);
+  outline: 6px dotted var(--cream);
+  outline-offset: -3px;
+}
+
+.stampV {
+  position: absolute;
+  top: 6px;
+  left: 8px;
+  font-family: var(--font-geist-mono);
+  font-size: 10px;
+  font-weight: 700;
+  color: #fff;
+}
+
+.stampMark {
+  width: 40px;
+  height: auto;
+}
+
+.stampBase {
+  position: absolute;
+  bottom: 8px;
+  left: 50%;
+  translate: -50%;
+  width: 30px;
+  height: 6px;
+  background: #9c3557;
+  border-radius: 2px;
+}
+
+/* giant wordmark */
+.wordmark {
+  position: absolute;
+  bottom: -4vw;
+  left: 50%;
+  translate: -50%;
+  font-family: var(--font-brand);
+  font-weight: 400;
+  font-size: clamp(90px, 16vw, 260px);
+  letter-spacing: 0;
+  line-height: 0.8;
+  color: #e8e6dc;
+  user-select: none;
+  white-space: nowrap;
+}

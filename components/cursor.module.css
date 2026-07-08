@@ -1,0 +1,32 @@
+.cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 9999;
+  pointer-events: none;
+  /* nudge so the marshmallow body sits just under-right of the actual point */
+  margin-left: -4px;
+  margin-top: -6px;
+  will-change: transform;
+}
+
+.sparkle {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: sparkleFlash 0.45s var(--ease-out) forwards;
+}
+
+@keyframes sparkleFlash {
+  0% {
+    opacity: 0;
+    transform: scale(0.6);
+  }
+  35% {
+    opacity: 1;
+    transform: scale(1.15);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1);
+  }
+}

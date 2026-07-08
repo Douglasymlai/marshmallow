@@ -1,0 +1,165 @@
+.brand {
+  position: fixed;
+  top: 22px;
+  left: 28px;
+  z-index: 60;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  opacity: 0;
+  transform: translateY(-6px);
+  transition:
+    opacity 0.45s var(--ease-out),
+    transform 0.45s var(--ease-out);
+  pointer-events: none;
+  cursor: pointer;
+  background: none;
+  border: none;
+}
+
+.brandVisible {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.brandName {
+  font-family: var(--font-brand);
+  font-weight: 400;
+  font-size: 20px;
+  letter-spacing: 0.2px;
+  color: var(--ink);
+}
+
+.banner {
+  position: fixed;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 55;
+  height: 72px;
+  display: grid;
+  place-items: center;
+  width: min(80vw, 900px);
+  pointer-events: none;
+}
+
+.bannerLayer {
+  grid-area: 1 / 1;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  white-space: nowrap;
+  transition:
+    opacity 0.5s var(--ease-out),
+    transform 0.5s var(--ease-out);
+}
+
+.bannerTitle {
+  font-family: var(--font-brand);
+  font-weight: 400;
+  font-size: 17px;
+  letter-spacing: 0.2px;
+  color: var(--ink);
+}
+
+.bannerDivider {
+  width: 1px;
+  height: 22px;
+  background: var(--line);
+}
+
+.bannerDesc {
+  font-size: 16px;
+  color: var(--warm);
+  letter-spacing: -0.33px;
+}
+
+.pill {
+  position: fixed;
+  top: 16px;
+  right: 26px;
+  z-index: 60;
+  padding: 4px 14px;
+  border-radius: 100px;
+  border: 1.5px solid var(--line-soft);
+  background: rgba(254, 254, 251, 0.45);
+  backdrop-filter: blur(6px);
+  opacity: 0;
+  transition:
+    opacity 0.45s var(--ease-out),
+    transform 0.2s var(--ease-spring);
+  pointer-events: none;
+  cursor: pointer;
+}
+
+.pillVisible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.pill:hover {
+  transform: rotate(-6deg) scale(1.06);
+}
+
+/* ── section indicator, fixed left ── */
+.sectionNav {
+  position: fixed;
+  left: 22px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 60;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  align-items: flex-start;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.45s var(--ease-out);
+}
+
+.sectionNavVisible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.sectionDot {
+  display: grid;
+  place-items: center;
+  padding: 2px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  opacity: 0.32;
+  transition:
+    opacity 0.3s var(--ease-out),
+    transform 0.3s var(--ease-spring);
+}
+
+.sectionDot:hover {
+  opacity: 0.7;
+}
+
+.sectionDotActive {
+  opacity: 1;
+}
+
+.sectionMark {
+  display: grid;
+  place-items: center;
+  transition: transform 0.3s var(--ease-spring);
+}
+
+.sectionDotActive .sectionMark {
+  transform: scale(1.25);
+}
+
+@media (max-width: 800px) {
+  .bannerDesc {
+    display: none;
+  }
+
+  .sectionNav {
+    display: none;
+  }
+}

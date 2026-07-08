@@ -1,0 +1,87 @@
+@import "tailwindcss";
+
+/* ── Feather design tokens (carried over from feather.computer) ── */
+:root {
+  --cream: #fefefb;
+  --paper: #fcf8ef;
+  --ink: #1a1a1a;
+  --muted: #aaaaaa;
+  --warm: #8c8780;
+  --warm-2: #a8a297;
+  --line: #e0e0e0;
+  --line-soft: #f0f0f0;
+
+  --red: #b91c1c;
+  --red-2: #dc2626;
+  --blue: #3b82f6;
+  --blue-link: #1a73e8;
+  --orange: #cc6a00;
+  --orange-2: #e06e3a;
+
+  /* GitHub semantics, Feather saturation */
+  --status-todo: #aaaaaa;
+  --status-progress: #6d9bd8;
+  --status-review: #d9a441;
+  --status-done: #7fae8b;
+  --status-blocked: #cf7a6e;
+  --diff-green: #7fae8b;
+  --diff-red: #cf7a6e;
+
+  /* pastel card tints */
+  --tint-pink: #f6dfdc;
+  --tint-blue: #dce8f6;
+  --tint-green: #dfeadd;
+  --tint-yellow: #f4ecd2;
+  --tint-lavender: #e6e0f0;
+  --tint-teal: #d8ebe7;
+  --tint-brick: #a94434;
+  --tint-forest: #3d5a44;
+  --tint-mustard: #c9a83c;
+
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-soft: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --ease-spring: cubic-bezier(0.34, 1.5, 0.5, 1);
+
+  --shadow-card: 0 4px 12px rgba(0, 0, 0, 0.06);
+  --shadow-panel: 0 2px 24px rgba(0, 0, 0, 0.08);
+  --shadow-hair: 0 1px 3px rgba(170, 170, 170, 0.1);
+
+  /* fluid poster unit */
+  --u: calc(max(600px, min(82vw, 1160px)) / 1160);
+
+  --font-brand: var(--font-pixel), var(--font-geist-sans), sans-serif;
+  --font-hand: var(--font-caveat), cursive;
+  --font-hand-2: var(--font-mansalva), cursive;
+  --font-serif: var(--font-cormorant), serif;
+}
+
+@media (max-width: 640px) {
+  :root {
+    --u: calc(97vw / 660);
+  }
+}
+
+html,
+body {
+  background: var(--cream);
+  color: var(--ink);
+  font-family: var(--font-geist-sans), sans-serif;
+  letter-spacing: -0.3px;
+}
+
+/* dotted grid backdrop — subtle paper texture */
+.dotted {
+  background-image: radial-gradient(rgba(140, 135, 128, 0.1) 1.3px, transparent 1.3px);
+  background-size: 24px 24px;
+  background-position: 12px 12px;
+}
+
+::selection {
+  background: var(--tint-yellow);
+}
+
+/* hide the native cursor while the marshmallow cursor is active */
+body.marshmallow-cursor,
+body.marshmallow-cursor * {
+  cursor: none !important;
+}
